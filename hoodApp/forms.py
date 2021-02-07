@@ -19,3 +19,8 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ['user','email']
+
+class NewAlertForm(forms.ModelForm):
+    class Meta:
+        model = Alert
+        exclude = ['user','hood']
