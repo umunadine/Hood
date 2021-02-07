@@ -37,8 +37,27 @@ class Neighborhood(models.Model):
         new_occupants_object = cls.objects.get(pk__id=id)
         new_occupants = new_name_object.occupants
         return new_occupants
-        
+
     def __str__(self):
         return self.name
 
+
+class Profile(models.Model):
+    user=models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic=models.ImageField(upload_to='profiles/',default='profiles/default.png')
+    first_name=models.CharField(max_length=30)
+    last_name=models.CharField(max_length=30)
+    bio= models.CharField(max_length=250)
+    email=models.EmailField()
+    location= models.CharField(max_length=250,default='add your general location')
+    neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+
+    def __str__(self):
+        return self.first_name
 
