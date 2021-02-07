@@ -85,3 +85,36 @@ class Hospital(models.Model):
 
     def __str__(self):
         return self.name
+
+class Alert(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    image = models.ImageField(upload_to='posts',blank=True)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    hood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+
+
+    def save_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
+    
+    @classmethod
+    def get_single_post(cls,id):
+        return cls.objects.get(id=id)
+
+    @classmethod   
+    def update_post(cls,id,content):
+        cls.objects.filter(pk = id).update(title=content)
+        new_name_object = cls.objects.get(pk=id)
+        new_name = new_name_object.title
+        return new_name
+
+    def __str__(self):
+
+        return self.title
+    
+    class Meta:
+        ordering =['-date_posted']
