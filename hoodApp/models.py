@@ -1,3 +1,44 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models import Q
+import datetime as dt
 
 # Create your models here.
+class Neighborhood(models.Model):
+    name=models.CharField(max_length=40)
+    location=models.CharField(max_length=40)
+    occupants_count = models.PositiveIntegerField(default=0)
+    health_contact = models.PositiveIntegerField()
+    police_contact = models.PositiveIntegerField()
+    hood_pic = models.ImageField(upload_to='images/')
+    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def create_neigborhood(self):
+        self.save()
+
+    def delete_neigborhood(self):
+        self.delete()
+
+    @classmethod
+    def find_neigborhood(cls, hood_id):
+        hood= cls.objects.get(id=hood_id)
+        return hood
+
+    @classmethod   
+    def update_neighborhood(cls,id,name):
+        cls.objects.filter(pk = id).update(name=name)
+        new_name_object = cls.objects.get(name = name)
+        new_name = new_name_object.name
+        return new_name
+    
+    @classmethod   
+    def update_occupants(cls,id,occupants):
+        cls.objects.filter(pk = id).update(occupants=occupants)
+        new_occupants_object = cls.objects.get(pk__id=id)
+        new_occupants = new_name_object.occupants
+        return new_occupants
+        
+    def __str__(self):
+        return self.name
+
+
