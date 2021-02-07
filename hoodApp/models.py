@@ -61,3 +61,27 @@ class Profile(models.Model):
     def __str__(self):
         return self.first_name
 
+class Business(models.Model):
+    name=models.CharField(max_length=100)
+    pic=models.ImageField(upload_to='pictures/')
+    neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
+    contacts=models.CharField(max_length=40, null=True)
+    description=models.CharField(max_length=200,null=True)
+    
+
+
+    def __str__(self):
+        return self.name
+
+    @classmethod
+    def search(cls,searchterm):
+        search = Business.objects.filter(Q(name__icontains=searchterm)|Q(description__icontains=searchterm))
+        return search
+
+class Hospital(models.Model):
+    name=models.CharField(max_length=100)
+    neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
+    contacts=models.CharField(max_length=40, null=True)
+
+    def __str__(self):
+        return self.name
