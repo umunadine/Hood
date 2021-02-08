@@ -106,7 +106,7 @@ def business(request,business_id):
 def newbusiness(request):
     current_user = request.user
     if request.method == 'POST':
-        form = NewBusinessForm(request.POST)
+        form = NewBusinessForm(request.POST,request.FILES)
         if form.is_valid():
                 business=form.save(commit=False)
                 business.neighborhood=current_user.profile.neighborhood
