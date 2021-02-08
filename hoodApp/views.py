@@ -25,3 +25,9 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request,'registration/registration_form.html')
+
+@login_required
+def index(request):
+    hoods = Neighborhood.objects.all()
+    return render(request,'index.html',{'hoods':hoods})
+    
