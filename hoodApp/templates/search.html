@@ -1,6 +1,13 @@
 {%extends 'base.html'%}
 {% block content %}
 <style>
+    body{
+        font-family: 'Poppins', serif;
+        background-color:aliceblue;
+    }
+    .container{
+      padding:60px 50px;
+    }
 </style>
 <div class="container">
 
@@ -17,12 +24,12 @@
 
     {% for business in businesses %}
     
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class='row'>
-        <div class="col-md-4">
-        <img src="{{business.pic.url}}" width='100%' alt='{{business.name}}'>
+        <div class="col-md-6">
+        <img src="{{business.pic.url}}" width='100% ' alt='{{business.name}}'>
         </div>
-        <div class='col-md-8' class='text-center'style='text-align:center'>
+        <div class='col-md-6' class='text-center'style='text-align:center;padding:0 50px;'>
             <h5><a href ='/business/{{business.id}}'><b>{{business.name}}</b></a></p>
             <p>{{business.description}}</p> <a href='/business/{{business.id}}' class='btn btn-info'>View more details</a></small><hr>
       </div>
